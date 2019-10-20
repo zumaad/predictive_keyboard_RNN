@@ -85,7 +85,6 @@ const paths =  {'Shakespeare':'http://0.0.0.0:8000/second_js_model/model.json','
 class TextBox extends Component {
     constructor(props) {
         super(props);
-        console.log("yeeet")
 
         this.state = {
             currentText: '',
@@ -111,7 +110,6 @@ class TextBox extends Component {
 
     predictWords(input) {
         let temperature = parseFloat(this.state.temperature)
-        console.log("temperature is currently",this.state.temperature)
         let suggestWordList =[]
         let inputArray = input.split('')
         let inputVector = inputArray.map((char) => mappings[this.state.title][1][char])
@@ -137,7 +135,6 @@ class TextBox extends Component {
 
             }
         }
-        console.log(suggestWordList)
         this.updateSuggestions(suggestWordList)
 
 
@@ -146,7 +143,6 @@ class TextBox extends Component {
 
     async loadModel(path) {
         model = await tf.loadLayersModel(path)
-        console.log(model)
         this.setState({model:model})
     }
 
@@ -188,16 +184,13 @@ class TextBox extends Component {
     }
 
     updateSuggestions(suggestionList) {
-        console.log(suggestionList)
         let count = 0
         let newSuggestionList = suggestionList.map((word) => [word,count++])
-        console.log("new suggestion list ",newSuggestionList)
         this.setState({potentialWords:newSuggestionList})
     }
 
     generateWords(inputText,num) {
         let temperature = parseFloat(this.state.temperature)
-        console.log("temperature is currently",this.state.temperature)
         let text_generated = []
         let inputArray = inputText.split('')
         let inputVector = inputArray.map((char) => mappings[this.state.title][1][char])
